@@ -34,24 +34,29 @@ jobs:
         shell: bash
         run: |
           sudo apt-get update
-          sudo apt-get install -y libxkbcommon-dev libwayland-dev libx11-xcb-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libfontconfig-dev
+          sudo apt-get install -y libxkbcommon-dev libxkbcommon-x11-dev libwayland-dev libx11-xcb-dev libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev libfontconfig-dev
 
-      - name: install nightly rust toolchain
+      - name: install stable rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: install nightly rust toolchain (for fmt)
         uses: dtolnay/rust-toolchain@nightly
         with:
-          components: rustfmt, clippy
+          components: rustfmt
 
       - name: cache cargo artifacts
         uses: Swatinem/rust-cache@v2
 
       - name: cargo check
-        run: cargo +nightly check --workspace --all-targets --locked
+        run: cargo +stable check --workspace --all-targets --locked
 
       - name: cargo fmt
         run: cargo +nightly fmt --all -- --check
 
       - name: cargo clippy
-        run: cargo +nightly clippy --workspace --all-targets --locked -- -D warnings
+        run: cargo +stable clippy --workspace --all-targets --locked -- -D warnings
 
       - name: cargo test
-        run: cargo test --workspace --locked
+        run: cargo +stable test --workspace --locked

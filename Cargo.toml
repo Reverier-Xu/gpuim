@@ -75,6 +75,7 @@ ashpd            = { version = "0.13", default-features = false, features = [
 ] }
 async-channel    = "2.5"
 async-fs         = "2.1"
+async-std        = { version = "1.13", features = ["unstable"] }
 async-task       = "4.7"
 async-tar        = "0.6"
 async-trait      = "0.1"

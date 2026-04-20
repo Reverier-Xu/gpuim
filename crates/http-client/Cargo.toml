@@ -34,6 +34,7 @@ url.workspace               = true
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 util.workspace       = true
 async-fs.workspace   = true
+async-std.workspace  = true
 async-tar.workspace  = true
 sha2.workspace       = true
 tempfile.workspace   = true
