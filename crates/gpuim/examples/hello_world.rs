@@ -1,0 +1,121 @@
+#![cfg_attr(target_family = "wasm", no_main)]
+
+use gpuim::{
+    App, Bounds, Context, SharedString, Window, WindowBounds, WindowOptions, div, prelude::*, px,
+    rgb, size,
+};
+use gpuim_platform::application;
+
+struct HelloWorld {
+    text: SharedString,
+}
+
+impl Render for HelloWorld {
+    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
+        div()
+            .flex()
+            .flex_col()
+            .gap_3()
+            .bg(rgb(0x505050))
+            .size(px(500.0))
+            .justify_center()
+            .items_center()
+            .shadow_lg()
+            .border_1()
+            .border_color(rgb(0x0000FF))
+            .text_xl()
+            .text_color(rgb(0xFFFFFF))
+            .child(format!("Hello, {}!", &self.text))
+            .child(
+                div()
+                    .flex()
+                    .gap_2()
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::red())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .border_color(gpuim::white()),
+                    )
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::green())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .border_color(gpuim::white()),
+                    )
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::blue())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .border_color(gpuim::white()),
+                    )
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::yellow())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .border_color(gpuim::white()),
+                    )
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::black())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .rounded_md()
+                            .border_color(gpuim::white()),
+                    )
+                    .child(
+                        div()
+                            .size_8()
+                            .bg(gpuim::white())
+                            .border_1()
+                            .border_dashed()
+                            .rounded_md()
+                            .border_color(gpuim::black()),
+                    ),
+            )
+    }
+}
+
+fn run_example() {
+    application().run(|cx: &mut App| {
+        let bounds = Bounds::centered(None, size(px(500.), px(500.0)), cx);
+        cx.open_window(
+            WindowOptions {
+                window_bounds: Some(WindowBounds::Windowed(bounds)),
+                ..Default::default()
+            },
+            |_, cx| {
+                cx.new(|_| HelloWorld {
+                    text: "World".into(),
+                })
+            },
+        )
+        .unwrap();
+        cx.activate(true);
+    });
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn main() {
+    run_example();
+}
+
+#[cfg(target_family = "wasm")]
+#[wasm_bindgen::prelude::wasm_bindgen(start)]
+pub fn start() {
+    gpuim_platform::web_init();
+    run_example();
+}

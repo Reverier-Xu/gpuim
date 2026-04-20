@@ -1,0 +1,43 @@
+[package]
+name        = "gpuim-platform"
+version     = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/gpui_platform.rs"
+
+[features]
+default         = []
+font-kit        = ["gpuim-macos/font-kit"]
+test-support    = ["gpuim/test-support", "gpuim-macos/test-support"]
+screen-capture  = [
+    "gpuim/screen-capture",
+    "gpuim-macos/screen-capture",
+    "gpuim-windows/screen-capture",
+    "gpuim-linux/screen-capture",
+]
+runtime_shaders = ["gpuim-macos/runtime_shaders"]
+wayland         = ["gpuim-linux/wayland"]
+x11             = ["gpuim-linux/x11"]
+
+[dependencies]
+gpuim.workspace = true
+
+[target.'cfg(target_os = "macos")'.dependencies]
+gpuim-macos.workspace = true
+
+[target.'cfg(target_os = "windows")'.dependencies]
+gpuim-windows.workspace = true
+gpuim                   = { workspace = true, features = ["windows-manifest"] }
+
+[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies]
+gpuim-linux.workspace = true
+
+[target.'cfg(target_family = "wasm")'.dependencies]
+gpuim-web.workspace            = true
+console_error_panic_hook       = "0.1"

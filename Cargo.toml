@@ -1,0 +1,336 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/collections",
+    "crates/gpuim",
+    "crates/gpuim-linux",
+    "crates/gpuim-macos",
+    "crates/gpuim-macros",
+    "crates/gpuim-platform",
+    "crates/gpuim-shared-string",
+    "crates/gpuim-tokio",
+    "crates/gpuim-util",
+    "crates/gpuim-web",
+    "crates/gpuim-wgpu",
+    "crates/gpuim-windows",
+    "crates/http-client",
+    "crates/http-client-tls",
+    "crates/media",
+    "crates/perf",
+    "crates/refineable",
+    "crates/refineable/derive-refineable",
+    "crates/reqwest-client",
+    "crates/scheduler",
+    "crates/sum-tree",
+    "crates/util",
+    "crates/util-macros",
+]
+default-members = ["crates/gpuim"]
+
+[workspace.package]
+publish          = false
+edition          = "2024"
+license          = "LGPL-3.0-or-later"
+repository       = "https://github.com/Reverier-Xu/gpuim"
+authors          = ["Nathan Sobo <nathan@zed.dev>", "Reverier-Xu <reverier.xu@woooo.tech>"]
+
+[workspace.dependencies]
+# Internal crates
+collections       = { path = "crates/collections" }
+derive-refineable = { path = "crates/refineable/derive-refineable" }
+gpuim             = { path = "crates/gpuim", default-features = false }
+gpuim-linux       = { path = "crates/gpuim-linux", default-features = false }
+gpuim-macos       = { path = "crates/gpuim-macos", default-features = false }
+gpuim-macros      = { path = "crates/gpuim-macros" }
+gpuim-platform    = { path = "crates/gpuim-platform", default-features = false }
+gpuim-shared-string = { path = "crates/gpuim-shared-string" }
+gpuim-tokio       = { path = "crates/gpuim-tokio" }
+gpuim-util        = { path = "crates/gpuim-util" }
+gpuim-web         = { path = "crates/gpuim-web" }
+gpuim-wgpu        = { path = "crates/gpuim-wgpu" }
+gpuim-windows     = { path = "crates/gpuim-windows", default-features = false }
+http-client       = { path = "crates/http-client" }
+http-client-tls   = { path = "crates/http-client-tls" }
+media             = { path = "crates/media" }
+perf              = { path = "crates/perf" }
+refineable        = { path = "crates/refineable" }
+reqwest-client    = { path = "crates/reqwest-client" }
+scheduler         = { path = "crates/scheduler" }
+sum-tree          = { path = "crates/sum-tree" }
+util              = { path = "crates/util" }
+util-macros       = { path = "crates/util-macros" }
+
+# External crates
+aho-corasick     = "1.1"
+anyhow           = "1.0"
+ashpd            = { version = "0.13", default-features = false, features = [
+    "async-io",
+    "notification",
+    "open_uri",
+    "file_chooser",
+    "settings",
+    "trash",
+    "wayland",
+] }
+async-channel    = "2.5"
+async-fs         = "2.1"
+async-task       = "4.7"
+async-tar        = "0.5"
+async-trait      = "0.1"
+async-compression = { version = "0.4", features = ["bzip2", "gzip", "futures-io"] }
+async_zip        = { version = "0.0.18", features = ["deflate", "deflate64"] }
+backtrace        = "0.3"
+bitflags         = "2.6"
+block            = "0.1"
+bytes            = "1.0"
+chrono           = { version = "0.4", features = ["serde"] }
+cocoa            = "=0.26.0"
+cocoa-foundation = "=0.2.0"
+core-foundation  = "=0.10.0"
+core-foundation-sys = "0.8"
+core-video       = { version = "0.5", features = ["metal"] }
+ctor             = "0.4"
+derive_more      = { version = "2.1", features = [
+    "add",
+    "add_assign",
+    "deref",
+    "deref_mut",
+    "display",
+    "from_str",
+    "mul",
+    "mul_assign",
+    "not",
+] }
+dirs             = "6.0"
+documented       = "0.9"
+dunce            = "1.0"
+ec4rs            = "1.1"
+env_logger       = "0.11"
+flume            = "0.11"
+font-kit         = { git = "https://github.com/zed-industries/font-kit", rev = "94b0f28166665e8fd2f53ff6d268a14955c82269", package = "zed-font-kit" }
+futures          = "0.3"
+futures-concurrency = "7.7"
+futures-lite     = "1.13"
+git2             = { version = "0.20", default-features = false, features = ["vendored-libgit2"] }
+globset          = "0.4"
+heapless         = "0.9"
+hdrhistogram     = "7"
+heck             = "0.5"
+http             = "1.1"
+http-body        = "1.0"
+ignore           = "0.4"
+image            = "0.25"
+indexmap         = { version = "2.7", features = ["serde"] }
+indoc            = "2"
+inventory        = "0.3"
+itertools        = "0.14"
+libc             = "0.2"
+log              = { version = "0.4", features = ["kv_unstable_serde", "serde"] }
+mach2            = "0.5"
+metal            = "0.33"
+naga             = { version = "29.0", features = ["wgsl-in"] }
+nix              = "0.29"
+objc             = "0.2"
+objc2-app-kit    = { version = "0.3", default-features = false, features = ["NSGraphics"] }
+objc2-foundation = { version = "=0.3.2", default-features = false, features = [
+    "NSArray",
+    "NSAttributedString",
+    "NSBundle",
+    "NSCoder",
+    "NSData",
+    "NSDate",
+    "NSDictionary",
+    "NSEnumerator",
+    "NSError",
+    "NSGeometry",
+    "NSNotification",
+    "NSNull",
+    "NSObjCRuntime",
+    "NSObject",
+    "NSProcessInfo",
+    "NSRange",
+    "NSRunLoop",
+    "NSString",
+    "NSURL",
+    "NSUndoManager",
+    "NSValue",
+    "objc2-core-foundation",
+    "std",
+] }
+parking_lot      = "0.12"
+percent-encoding = "2.3"
+pollster         = "0.4"
+postage          = { version = "0.5", features = ["futures-traits"] }
+pretty_assertions = { version = "1.3", features = ["unstable"] }
+proc-macro2      = "1.0"
+profiling        = "1"
+proptest         = { version = "1.6", features = ["attr-macro"] }
+proptest-derive  = "0.8"
+quote            = "1.0"
+rand             = "0.9"
+rayon            = "1.8"
+regex            = "1.5"
+reqwest          = { version = "0.12", default-features = false, features = [
+    "charset",
+    "http2",
+    "macos-system-configuration",
+    "multipart",
+    "rustls-tls-native-roots",
+    "socks",
+    "stream",
+] }
+rust-embed       = { version = "8.11", features = ["include-exclude"] }
+rustc-hash       = "2.1"
+rustls           = "0.23"
+rustls-platform-verifier = "0.5"
+scap             = { git = "https://github.com/zed-industries/scap", rev = "4afea48c3b002197176fb19cd0f9b180dd36eaac", default-features = false, package = "zed-scap" }
+schemars         = { version = "1.0", features = ["indexmap2"] }
+semver           = { version = "1.0", features = ["serde"] }
+serde            = { version = "1.0", features = ["derive", "rc"] }
+serde_json       = { version = "1.0", features = ["preserve_order", "raw_value"] }
+serde_json_lenient = { version = "0.2", features = ["preserve_order", "raw_value"] }
+serde_path_to_error = "0.1"
+serde_urlencoded = "0.7"
+sha2             = "0.10"
+shlex            = "1.3"
+slotmap          = "1.0"
+smallvec         = { version = "1.6", features = ["union", "const_new"] }
+smol             = "2.0"
+stacksafe        = "0.1"
+strum            = { version = "0.27", features = ["derive"] }
+syn              = { version = "2.0", features = ["full", "extra-traits", "visit-mut"] }
+take-until       = "0.2"
+tempfile         = "3.20"
+thiserror        = "2.0"
+time             = { version = "0.3", features = [
+    "macros",
+    "parsing",
+    "serde",
+    "serde-well-known",
+    "formatting",
+    "local-offset",
+] }
+tokio            = "1"
+tracing          = "0.1"
+tracing-subscriber = "0.3"
+unicase          = "2.6"
+unicode-segmentation = "1.10"
+unindent         = "0.2"
+url              = "2.2"
+uuid             = { version = "1.1", features = ["v4", "v5", "v7", "serde"] }
+walkdir          = "2.5"
+wasm-bindgen     = "0.2"
+web-time         = "1.1"
+wgpu             = "29"
+which            = "6.0"
+windows          = { version = "0.61", features = [
+    "Foundation_Numerics",
+    "Globalization_DateTimeFormatting",
+    "Storage_Search",
+    "Storage_Streams",
+    "System_Threading",
+    "UI_ViewManagement",
+    "Wdk_System_SystemServices",
+    "Win32_Foundation",
+    "Win32_Globalization",
+    "Win32_Graphics_Direct3D",
+    "Win32_Graphics_Direct3D11",
+    "Win32_Graphics_Direct3D_Fxc",
+    "Win32_Graphics_DirectComposition",
+    "Win32_Graphics_DirectWrite",
+    "Win32_Graphics_DirectManipulation",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Dxgi",
+    "Win32_Graphics_Dxgi_Common",
+    "Win32_Graphics_Gdi",
+    "Win32_Graphics_Imaging",
+    "Win32_Graphics_Hlsl",
+    "Win32_Networking_WinSock",
+    "Win32_Security",
+    "Win32_Security_Credentials",
+    "Win32_Security_Cryptography",
+    "Win32_Storage_FileSystem",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_Console",
+    "Win32_System_Diagnostics_Debug",
+    "Win32_System_DataExchange",
+    "Win32_System_IO",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Ole",
+    "Win32_System_Performance",
+    "Win32_System_Pipes",
+    "Win32_System_RestartManager",
+    "Win32_System_SystemInformation",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_System_Variant",
+    "Win32_System_WinRT",
+    "Win32_UI_Controls",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_Ime",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Input_Pointer",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_UI_Shell_PropertiesSystem",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_Media",
+] }
+windows-core     = "0.61"
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "allow" }
+
+[workspace.lints.clippy]
+dbg_macro                     = "deny"
+todo                          = "deny"
+declare_interior_mutable_const = "deny"
+redundant_clone               = "deny"
+disallowed_methods            = "deny"
+type_complexity               = "allow"
+let_underscore_future         = "allow"
+single_range_in_vec_init      = "allow"
+too_many_arguments            = "allow"
+large_enum_variant            = "allow"
+nonminimal_bool               = "allow"
+
+[workspace.metadata.cargo-machete]
+ignored = ["bindgen", "cbindgen", "serde", "component", "documented"]
+
+[profile.dev]
+split-debuginfo = "unpacked"
+incremental     = true
+codegen-units   = 16
+
+[profile.dev.build-override]
+codegen-units   = 16
+split-debuginfo = "unpacked"
+debug           = true
+
+[profile.dev.package]
+gpuim-macros      = { opt-level = 3 }
+derive-refineable = { opt-level = 3 }
+util-macros       = { opt-level = 3 }
+quote             = { opt-level = 3 }
+syn               = { opt-level = 3 }
+proc-macro2       = { opt-level = 3 }
+taffy             = { opt-level = 3 }
+resvg             = { opt-level = 3 }
+collections       = { codegen-units = 1 }
+refineable        = { codegen-units = 1 }
+reqwest-client    = { codegen-units = 1 }
+
+[profile.release]
+debug        = "limited"
+lto          = "thin"
+codegen-units = 1
+opt-level    = 3
+strip        = true
+
+[profile.release-fast]
+inherits     = "release"
+debug        = "full"
+lto          = false
+codegen-units = 16

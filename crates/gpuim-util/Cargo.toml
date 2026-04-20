@@ -1,0 +1,16 @@
+[package]
+name        = "gpuim-util"
+version     = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+license.workspace = true
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+log.workspace    = true
+anyhow.workspace = true
+
+[lints]
+workspace = true

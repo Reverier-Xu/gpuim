@@ -1,0 +1,17 @@
+[package]
+name        = "gpuim-shared-string"
+version     = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+path = "gpui_shared_string.rs"
+
+[dependencies]
+derive_more.workspace = true
+gpuim-util.workspace  = true
+schemars.workspace    = true
+serde.workspace       = true
+
+[lints]
+workspace = true
