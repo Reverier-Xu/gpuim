@@ -2,7 +2,7 @@
 name              = "http-client"
 version           = { workspace = true }
 edition.workspace = true
-publish = false
+publish.workspace = true
 license.workspace = true
 description       = "A HTTP client abstraction for GPUI"
 

@@ -2,7 +2,7 @@
 name              = "util"
 version           = { workspace = true }
 edition.workspace = true
-publish = false
+publish.workspace = true
 license.workspace = true
 description       = "A collection of utility structs and functions used by GPUI"
 

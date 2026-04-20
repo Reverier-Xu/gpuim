@@ -2,7 +2,7 @@
 name              = "gpuim-platform"
 version           = { workspace = true }
 edition.workspace = true
-publish = false
+publish.workspace = true
 license.workspace = true
 
 [lints]

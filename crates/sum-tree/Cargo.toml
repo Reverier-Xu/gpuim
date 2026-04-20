@@ -2,7 +2,7 @@
 name              = "sum-tree"
 version           = { workspace = true }
 edition.workspace = true
-publish = false
+publish.workspace = true
 license.workspace = true
 description       = "A sum tree data structure, a concurrency-friendly B-tree"
 
