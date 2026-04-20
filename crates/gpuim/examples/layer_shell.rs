@@ -82,7 +82,7 @@ mod example {
                         origin: point(px(0.), px(0.)),
                         size: Size::new(px(500.), px(200.)),
                     })),
-                    app_id: Some("gpui-layer-shell-example".to_string()),
+                    app_id: Some("gpuim-layer-shell-example".to_string()),
                     window_background: WindowBackgroundAppearance::Transparent,
                     kind: WindowKind::LayerShell(LayerShellOptions {
                         namespace: "gpuim".to_string(),

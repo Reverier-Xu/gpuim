@@ -63,7 +63,7 @@ impl DragDrop {
 
 impl Render for DragDrop {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        let items = [gpui::blue(), gpuim::red(), gpuim::green()];
+        let items = [gpuim::blue(), gpuim::red(), gpuim::green()];
 
         div()
             .size_full()

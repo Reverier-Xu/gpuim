@@ -4,8 +4,8 @@
 //! When run normally, this displays an interactive counter window.
 //! The tests below demonstrate various GPUI testing patterns.
 //!
-//! Run the app: cargo run -p gpui --example testing
-//! Run tests:   cargo test -p gpui --example testing --features test-support
+//! Run the app: cargo run -p gpuim --example testing
+//! Run tests:   cargo test -p gpuim --example testing --features test-support
 
 use gpuim::{
     App, Bounds, Context, FocusHandle, Focusable, Render, Task, Window, WindowBounds,
@@ -328,7 +328,7 @@ mod tests {
     }
 
     /// GPUI also provides support for property testing, via the iterations flag
-    #[gpui::test(iterations = 10)]
+    #[gpuim::test(iterations = 10)]
     fn test_counter_random_operations(cx: &mut TestAppContext, mut rng: StdRng) {
         let window = cx.update(|cx| {
             cx.open_window(Default::default(), |_, cx| cx.new(|cx| Counter::new(cx)))
@@ -498,7 +498,7 @@ mod tests {
         /// `run_until_parked`, the dispatcher will randomly pick which
         /// app's tasks to run next. This allows you to test that your
         /// distributed code is robust to different execution orderings.
-        #[gpui::test(iterations = 10)]
+        #[gpuim::test(iterations = 10)]
         fn test_random_interleaving(
             cx_a: &mut TestAppContext, cx_b: &mut TestAppContext, mut rng: StdRng,
         ) {
