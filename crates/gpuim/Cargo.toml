@@ -1,6 +1,6 @@
 [package]
 name                 = "gpuim"
-version              = "0.1.0"
+version              = { workspace = true }
 edition.workspace    = true
 authors.workspace    = true
 description          = "A GPU-accelerated UI framework (fork of Zed's GPUI)"

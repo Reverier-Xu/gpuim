@@ -28,7 +28,8 @@ members = [
 default-members = ["crates/gpuim", "crates/gpuim-platform"]
 
 [workspace.package]
-publish          = false
+version          = "0.1.0"
+publish          = true
 edition          = "2024"
 license          = "LGPL-3.0-or-later"
 repository       = "https://github.com/Reverier-Xu/gpuim"
