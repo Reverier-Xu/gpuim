@@ -15,7 +15,7 @@ pub fn tls_config() -> ClientConfig {
                 .install_default()
                 .ok();
 
-            ClientConfig::with_platform_verifier()
+            ClientConfig::with_platform_verifier().expect("failed to create platform verifier")
         })
         .clone()
 }

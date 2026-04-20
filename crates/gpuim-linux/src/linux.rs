@@ -52,6 +52,9 @@ pub fn current_platform(headless: bool) -> Rc<dyn gpuim::Platform> {
         "Headless" => Rc::new(LinuxPlatform {
             inner: HeadlessClient::new(),
         }),
-        _ => unreachable!(),
+        other => panic!(
+            "unrecognized compositor '{other}'; \
+             ensure wayland/x11 features are enabled in gpuim-platform"
+        ),
     }
 }

@@ -22,6 +22,7 @@ use backtrace::{Backtrace, BacktraceFrame};
 use futures::channel::oneshot;
 use parking_lot::{Mutex, MutexGuard};
 use rand::{
+    RngExt,
     distr::{
         StandardUniform,
         uniform::{SampleRange, SampleUniform},
