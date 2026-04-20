@@ -18,7 +18,7 @@ use gpuim::{
     Path, Point, PolychromeSprite, PrimitiveBatch, Quad, ScaledPixels, Scene, Shadow, Size,
     Surface, Underline, point, size,
 };
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 use image::RgbaImage;
 use metal::{
     CAMetalLayer, CommandQueue, MTLGPUFamily, MTLPixelFormat, MTLResourceOptions, NSRange,
@@ -153,7 +153,7 @@ impl MetalRenderer {
         layer.set_maximum_drawable_count(3);
         // Allow texture reading for visual tests (captures screenshots without
         // ScreenCaptureKit)
-        #[cfg(any(test, feature = "test-support"))]
+        #[cfg(feature = "test-support")]
         layer.set_framebuffer_only(false);
         unsafe {
             let _: () = msg_send![&*layer, setAllowsNextDrawableTimeout: NO];
@@ -174,7 +174,7 @@ impl MetalRenderer {
     /// This renderer can render scenes to images without requiring a
     /// CAMetalLayer, window, or AppKit. Use `render_scene_to_image()` to
     /// render scenes.
-    #[cfg(any(test, feature = "test-support"))]
+    #[cfg(feature = "test-support")]
     pub fn new_headless(instance_buffer_pool: Arc<Mutex<InstanceBufferPool>>) -> Self {
         let device = Self::create_device();
         Self::new_internal(device, None, true, instance_buffer_pool)
@@ -519,7 +519,7 @@ impl MetalRenderer {
     ///
     /// Note: This requires a layer-backed renderer. For headless rendering,
     /// use `render_scene_to_image()` instead.
-    #[cfg(any(test, feature = "test-support"))]
+    #[cfg(feature = "test-support")]
     pub fn render_to_image(&mut self, scene: &Scene) -> Result<RgbaImage> {
         let layer = self
             .layer
@@ -618,7 +618,7 @@ impl MetalRenderer {
     /// This is the primary method for headless rendering. It creates an
     /// offscreen texture, renders the scene to it, and returns the pixel
     /// data as an RGBA image.
-    #[cfg(any(test, feature = "test-support"))]
+    #[cfg(feature = "test-support")]
     pub fn render_scene_to_image(
         &mut self, scene: &Scene, size: Size<DevicePixels>,
     ) -> Result<RgbaImage> {
@@ -1630,12 +1630,12 @@ pub struct SurfaceBounds {
     pub content_mask: ContentMask<ScaledPixels>,
 }
 
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 pub struct MetalHeadlessRenderer {
     renderer: MetalRenderer,
 }
 
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 impl MetalHeadlessRenderer {
     pub fn new() -> Self {
         let instance_buffer_pool = Arc::new(Mutex::new(InstanceBufferPool::default()));
@@ -1644,7 +1644,7 @@ impl MetalHeadlessRenderer {
     }
 }
 
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 impl gpuim::PlatformHeadlessRenderer for MetalHeadlessRenderer {
     fn render_scene_to_image(
         &mut self, scene: &Scene, size: Size<DevicePixels>,

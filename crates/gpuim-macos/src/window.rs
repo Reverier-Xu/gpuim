@@ -13,7 +13,7 @@ use std::{
     time::Duration,
 };
 
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 use anyhow::Result;
 use block::ConcreteBlock;
 use cocoa::{
@@ -50,7 +50,7 @@ use gpuim::{
     WindowBackgroundAppearance, WindowBounds, WindowControlArea, WindowKind, WindowParams, point,
     px, size,
 };
-#[cfg(any(test, feature = "test-support"))]
+#[cfg(feature = "test-support")]
 use image::RgbaImage;
 use objc::{
     class,
@@ -1688,7 +1688,7 @@ impl PlatformWindow for MacWindow {
         unsafe { NSBeep() }
     }
 
-    #[cfg(any(test, feature = "test-support"))]
+    #[cfg(feature = "test-support")]
     fn render_to_image(&self, scene: &gpuim::Scene) -> Result<RgbaImage> {
         let mut this = self.0.lock();
         this.renderer.render_to_image(scene)

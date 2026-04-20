@@ -426,6 +426,7 @@ mod tests {
     }
 
     #[test]
+    #[ignore] // Requires a GPU; skip on CI
     fn before_frame_skips_uploads_for_removed_texture() -> anyhow::Result<()> {
         let (device, queue) = test_device_and_queue()?;
 
