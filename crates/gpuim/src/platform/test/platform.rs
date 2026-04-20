@@ -446,6 +446,12 @@ impl Platform for TestPlatform {
     }
 }
 
+impl Default for TestScreenCaptureSource {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl TestScreenCaptureSource {
     /// Create a fake screen capture source, for testing.
     pub fn new() -> Self {

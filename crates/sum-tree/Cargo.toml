@@ -21,9 +21,10 @@ tracing.workspace  = true
 proptest           = { workspace = true, optional = true }
 
 [dev-dependencies]
-ctor.workspace     = true
-rand.workspace     = true
-proptest.workspace = true
+ctor.workspace       = true
+env_logger.workspace = true
+rand.workspace       = true
+proptest.workspace   = true
 
 [package.metadata.cargo-machete]
 ignored = ["tracing"]

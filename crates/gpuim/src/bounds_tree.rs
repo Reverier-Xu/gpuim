@@ -332,15 +332,13 @@ where
 
                 // Swap updated child to end (skip first iteration since the invariant is
                 // already handled by previous cases)
-                if let Some(child_idx) = updated_child_idx {
-                    if let NodeKind::Internal { children } = &mut node.kind {
-                        if let Some(pos) = children.as_slice().iter().position(|&c| c == child_idx)
-                        {
-                            let last = children.len() - 1;
-                            if pos != last {
-                                children.indices.swap(pos, last);
-                            }
-                        }
+                if let Some(child_idx) = updated_child_idx
+                    && let NodeKind::Internal { children } = &mut node.kind
+                    && let Some(pos) = children.as_slice().iter().position(|&c| c == child_idx)
+                {
+                    let last = children.len() - 1;
+                    if pos != last {
+                        children.indices.swap(pos, last);
                     }
                 }
             }
@@ -369,7 +367,7 @@ where
 
 #[cfg(test)]
 mod tests {
-    use rand::{Rng, SeedableRng};
+    use rand::{RngExt as _, SeedableRng};
 
     use super::*;
     use crate::{Bounds, Point, Size};

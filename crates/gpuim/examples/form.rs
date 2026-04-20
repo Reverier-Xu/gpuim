@@ -1,8 +1,8 @@
 #![cfg_attr(target_family = "wasm", no_main)]
 
 use gpuim::{
-    App, Bounds, Context, FontWeight, Render, SharedString, Window, WindowBounds, WindowOptions, div,
-    prelude::*, px, rgb, size,
+    App, Bounds, Context, FontWeight, Render, SharedString, Window, WindowBounds, WindowOptions,
+    div, prelude::*, px, rgb, size,
 };
 use gpuim_platform::application;
 
@@ -157,11 +157,9 @@ impl Render for Form {
                                 .cursor_pointer()
                                 .hover(|s| s.opacity(0.9))
                                 .active(|s| s.opacity(0.8))
-                                .on_click(cx.listener(
-                                    |this, _: &gpuim::ClickEvent, _, cx| {
-                                        this.submit(cx);
-                                    },
-                                ))
+                                .on_click(cx.listener(|this, _: &gpuim::ClickEvent, _, cx| {
+                                    this.submit(cx);
+                                }))
                                 .child("Submit"),
                         )
                         .child(
@@ -179,11 +177,9 @@ impl Render for Form {
                                 .cursor_pointer()
                                 .hover(|s| s.opacity(0.9))
                                 .active(|s| s.opacity(0.8))
-                                .on_click(cx.listener(
-                                    |this, _: &gpuim::ClickEvent, _, cx| {
-                                        this.reset(cx);
-                                    },
-                                ))
+                                .on_click(cx.listener(|this, _: &gpuim::ClickEvent, _, cx| {
+                                    this.reset(cx);
+                                }))
                                 .child("Reset"),
                         ),
                 )
@@ -211,7 +207,15 @@ impl Render for Form {
                     .font_weight(FontWeight::BOLD)
                     .child("Contact Form"),
             )
-            .child(div().flex_1().flex().flex_col().gap_4().p_4().child(content))
+            .child(
+                div()
+                    .flex_1()
+                    .flex()
+                    .flex_col()
+                    .gap_4()
+                    .p_4()
+                    .child(content),
+            )
     }
 }
 
@@ -225,15 +229,9 @@ fn run_example() {
             },
             |_, cx| {
                 cx.new(|_| Form {
-                    name: FormField {
-                        value: "".into(),
-                    },
-                    email: FormField {
-                        value: "".into(),
-                    },
-                    message: FormField {
-                        value: "".into(),
-                    },
+                    name: FormField { value: "".into() },
+                    email: FormField { value: "".into() },
+                    message: FormField { value: "".into() },
                     submitted: false,
                 })
             },

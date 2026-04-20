@@ -771,9 +771,14 @@ pub trait PlatformTextSystem: Send + Sync {
 #[expect(missing_docs)]
 pub struct NoopTextSystem;
 
+impl Default for NoopTextSystem {
+    fn default() -> Self {
+        Self
+    }
+}
+
 #[expect(missing_docs)]
 impl NoopTextSystem {
-    #[allow(dead_code)]
     pub fn new() -> Self {
         Self
     }

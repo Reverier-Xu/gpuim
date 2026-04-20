@@ -1364,7 +1364,7 @@ mod tests {
 
     #[ctor::ctor]
     fn init_logger() {
-        log::init_test();
+        let _ = env_logger::builder().is_test(true).try_init();
     }
 
     #[test]

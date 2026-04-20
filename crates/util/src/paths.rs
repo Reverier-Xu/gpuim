@@ -197,22 +197,18 @@ pub fn path_ends_with(base: &Path, suffix: &Path) -> bool {
 }
 
 pub fn strip_path_suffix<'a>(base: &'a Path, suffix: &Path) -> Option<&'a Path> {
-    if let Some(remainder) = base
+    let remainder = base
         .as_os_str()
         .as_encoded_bytes()
-        .strip_suffix(suffix.as_os_str().as_encoded_bytes())
+        .strip_suffix(suffix.as_os_str().as_encoded_bytes())?;
+    if remainder
+        .last()
+        .is_none_or(|last_byte| std::path::is_separator(*last_byte as char))
     {
-        if remainder
-            .last()
-            .is_none_or(|last_byte| std::path::is_separator(*last_byte as char))
-        {
-            let os_str = unsafe {
-                OsStr::from_encoded_bytes_unchecked(
-                    &remainder[0..remainder.len().saturating_sub(1)],
-                )
-            };
-            return Some(Path::new(os_str));
-        }
+        let os_str = unsafe {
+            OsStr::from_encoded_bytes_unchecked(&remainder[0..remainder.len().saturating_sub(1)])
+        };
+        return Some(Path::new(os_str));
     }
     None
 }
@@ -871,7 +867,7 @@ impl PathMatcher {
                 let glob = glob.glob();
                 Some((
                     glob.to_string(),
-                    RelPath::new(&glob.as_ref(), path_style)
+                    RelPath::new(glob.as_ref(), path_style)
                         .ok()
                         .map(std::borrow::Cow::into_owned)?,
                     glob.ends_with(path_style.separators_ch()),
@@ -1014,8 +1010,8 @@ where
             // Try parsing as numbers first
             if let (Ok(a_val), Ok(b_val)) = (a_num_str.parse::<u128>(), b_num_str.parse::<u128>()) {
                 match a_val.cmp(&b_val) {
-                    Ordering::Equal => ordering, /* Same value, longer one is greater (leading
-                                                   * zeros) */
+                    Ordering::Equal => ordering, /* Same value, longer one is greater (leading */
+                    // zeros)
                     ord => ord,
                 }
             } else {
@@ -1160,20 +1156,8 @@ fn case_group_key(name: &str, order: SortOrder) -> u8 {
         None => return 0,
     };
     match order {
-        SortOrder::Upper => {
-            if first.is_lowercase() {
-                1
-            } else {
-                0
-            }
-        }
-        SortOrder::Lower => {
-            if first.is_uppercase() {
-                1
-            } else {
-                0
-            }
-        }
+        SortOrder::Upper if first.is_lowercase() => 1,
+        SortOrder::Lower if first.is_uppercase() => 1,
         _ => 0,
     }
 }
@@ -1229,12 +1213,16 @@ pub fn compare_rel_paths_by(
                     return file_dir_ordering;
                 }
 
-                let (a_stem, a_ext) = a_leaf_file
-                    .then(|| stem_and_extension(component_a))
-                    .unwrap_or_default();
-                let (b_stem, b_ext) = b_leaf_file
-                    .then(|| stem_and_extension(component_b))
-                    .unwrap_or_default();
+                let (a_stem, a_ext) = if a_leaf_file {
+                    stem_and_extension(component_a)
+                } else {
+                    Default::default()
+                };
+                let (b_stem, b_ext) = if b_leaf_file {
+                    stem_and_extension(component_b)
+                } else {
+                    Default::default()
+                };
                 let a_key = if a_leaf_file {
                     a_stem
                 } else {
@@ -1429,12 +1417,14 @@ pub trait UrlExt {
     ///
     /// Prefer using this over `url::Url::to_file_path` when you need to handle
     /// paths in a cross-platform way as is the case for remoting interactions.
+    #[allow(clippy::result_unit_err)]
     fn to_file_path_ext(&self, path_style: PathStyle) -> Result<PathBuf, ()>;
 }
 
 impl UrlExt for url::Url {
     // Copied from `url::Url::to_file_path`, but the `cfg` handling is replaced with
     // runtime branching on `PathStyle`
+    #[allow(clippy::result_unit_err)]
     fn to_file_path_ext(&self, source_path_style: PathStyle) -> Result<PathBuf, ()> {
         if let Some(segments) = self.path_segments() {
             let host = match self.host() {

@@ -144,7 +144,7 @@ impl WaylandSurfaceState {
             };
 
             let layer_surface = layer_shell.get_layer_surface(
-                &surface,
+                surface,
                 target_output.as_ref(),
                 super::layer_shell::wayland_layer(options.layer),
                 options.namespace.clone(),
@@ -187,7 +187,7 @@ impl WaylandSurfaceState {
         // All other WindowKinds result in a regular xdg surface
         let xdg_surface = globals
             .wm_base
-            .get_xdg_surface(&surface, &globals.qh, surface.id());
+            .get_xdg_surface(surface, &globals.qh, surface.id());
 
         let toplevel = xdg_surface.get_toplevel(&globals.qh, surface.id());
         let xdg_parent = parent.as_ref().and_then(|w| w.toplevel());
@@ -425,6 +425,7 @@ impl WaylandWindowState {
 }
 
 pub(crate) struct WaylandWindow(pub WaylandWindowStatePtr);
+#[allow(clippy::enum_variant_names)]
 pub enum ImeInput {
     InsertText(String),
     SetMarkedText(String),
@@ -868,14 +869,13 @@ impl WaylandWindowStatePtr {
                     self.rescale(scale as f32);
                 }
             }
-            wl_surface::Event::PreferredBufferScale { factor } => {
+            wl_surface::Event::PreferredBufferScale { factor }
                 // We use `WpFractionalScale` instead to set the scale if it's available
-                if state.globals.fractional_scale_manager.is_none() {
+                if state.globals.fractional_scale_manager.is_none() => {
                     state.surface.set_buffer_scale(factor);
                     drop(state);
                     self.rescale(factor as f32);
                 }
-            }
             _ => {}
         }
     }

@@ -302,6 +302,12 @@ pub fn read_no_proxy_from_env() -> Option<String> {
 
 pub struct BlockedHttpClient;
 
+impl Default for BlockedHttpClient {
+    fn default() -> Self {
+        BlockedHttpClient
+    }
+}
+
 impl BlockedHttpClient {
     pub fn new() -> Self {
         BlockedHttpClient

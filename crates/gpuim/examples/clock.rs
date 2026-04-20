@@ -1,8 +1,8 @@
 #![cfg_attr(target_family = "wasm", no_main)]
 
 use gpuim::{
-    App, Bounds, Context, FontWeight, Render, Window, WindowBounds, WindowOptions, div,
-    prelude::*, px, rgb, size,
+    App, Bounds, Context, FontWeight, Render, Window, WindowBounds, WindowOptions, div, prelude::*,
+    px, rgb, size,
 };
 use gpuim_platform::application;
 
@@ -99,22 +99,17 @@ impl Render for Clock {
                     .child(
                         div()
                             .absolute()
-                            .top(px(hour_rad.sin() as f32 * 50.0 + 105.0))
-                            .left(px(hour_rad.cos() as f32 * 50.0 + 105.0))
+                            .top(px(hour_rad.sin() * 50.0 + 105.0))
+                            .left(px(hour_rad.cos() * 50.0 + 105.0))
                             .size(px(10.0))
                             .rounded_full()
                             .bg(rgb(0x888888)),
                     ),
             )
-            .child(
-                div()
-                    .text_lg()
-                    .text_color(rgb(0x8888AA))
-                    .child(format!(
-                        "{:02}:{:02}:{:02}",
-                        self.hours, self.minutes, self.seconds
-                    )),
-            )
+            .child(div().text_lg().text_color(rgb(0x8888AA)).child(format!(
+                "{:02}:{:02}:{:02}",
+                self.hours, self.minutes, self.seconds
+            )))
     }
 }
 

@@ -320,8 +320,8 @@ impl KeybindingKeystroke {
     ///   which is the GPUI representation of the keystroke.
     /// - On Windows, this modifiers is the display modifiers, for example, a
     ///   `ctrl-@` keystroke will have `inner.modifiers` as
-    /// `Modifiers::control()` and `display_modifiers` as
-    /// `Modifiers::control_shift()`.
+    ///   `Modifiers::control()` and `display_modifiers` as
+    ///   `Modifiers::control_shift()`.
     pub fn modifiers(&self) -> &Modifiers {
         #[cfg(target_os = "windows")]
         {
@@ -785,6 +785,6 @@ fn unparse(modifiers: &Modifiers, key: &str) -> String {
     if modifiers.shift {
         result.push_str("shift-");
     }
-    result.push_str(&key);
+    result.push_str(key);
     result
 }

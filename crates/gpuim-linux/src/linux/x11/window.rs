@@ -556,23 +556,23 @@ impl X11WindowState {
                 )?;
             }
 
-            if params.kind == WindowKind::Floating || params.kind == WindowKind::Dialog {
-                if let Some(parent_window) = parent_window.as_ref().map(|w| w.x_window) {
-                    // WM_TRANSIENT_FOR hint indicating the main application window. For floating
-                    // windows, we set a parent window (WM_TRANSIENT_FOR) such
-                    // that the window manager knows where to place the floating
-                    // window in relation to the main window. https://specifications.freedesktop.org/wm-spec/1.4/ar01s05.html
-                    check_reply(
-                        || "X11 ChangeProperty32 setting WM_TRANSIENT_FOR for floating window failed.",
-                        xcb.change_property32(
-                            xproto::PropMode::REPLACE,
-                            x_window,
-                            atoms.WM_TRANSIENT_FOR,
-                            xproto::AtomEnum::WINDOW,
-                            &[parent_window],
-                        ),
-                    )?;
-                }
+            if (params.kind == WindowKind::Floating || params.kind == WindowKind::Dialog)
+                && let Some(parent_window) = parent_window.as_ref().map(|w| w.x_window)
+            {
+                // WM_TRANSIENT_FOR hint indicating the main application window. For floating
+                // windows, we set a parent window (WM_TRANSIENT_FOR) such
+                // that the window manager knows where to place the floating
+                // window in relation to the main window. https://specifications.freedesktop.org/wm-spec/1.4/ar01s05.html
+                check_reply(
+                    || "X11 ChangeProperty32 setting WM_TRANSIENT_FOR for floating window failed.",
+                    xcb.change_property32(
+                        xproto::PropMode::REPLACE,
+                        x_window,
+                        atoms.WM_TRANSIENT_FOR,
+                        xproto::AtomEnum::WINDOW,
+                        &[parent_window],
+                    ),
+                )?;
             }
 
             let parent = if params.kind == WindowKind::Dialog

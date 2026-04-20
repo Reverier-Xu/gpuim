@@ -1,8 +1,8 @@
 #![cfg_attr(target_family = "wasm", no_main)]
 
 use gpuim::{
-    App, Bounds, Context, FontWeight, Render, SharedString, Window, WindowBounds, WindowOptions, div,
-    prelude::*, px, rgb, size,
+    App, Bounds, Context, FontWeight, Render, SharedString, Window, WindowBounds, WindowOptions,
+    div, prelude::*, px, rgb, size,
 };
 use gpuim_platform::application;
 
@@ -189,9 +189,11 @@ impl Render for TodoList {
                                     rgb(0xFFFFFF)
                                 })
                                 .cursor_pointer()
-                                .on_click(cx.listener(move |this, _: &gpuim::ClickEvent, _, cx| {
-                                    this.toggle_item(i, cx);
-                                })),
+                                .on_click(cx.listener(
+                                    move |this, _: &gpuim::ClickEvent, _, cx| {
+                                        this.toggle_item(i, cx);
+                                    },
+                                )),
                         )
                         .child(
                             div()

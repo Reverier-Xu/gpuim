@@ -33,10 +33,7 @@ impl ThreadTaskTimings {
     pub fn convert(timings: &[GlobalThreadTimings]) -> Vec<Self> {
         timings
             .iter()
-            .filter_map(|t| match t.timings.upgrade() {
-                Some(timings) => Some((t.thread_id, timings)),
-                _ => None,
-            })
+            .filter_map(|t| t.timings.upgrade().map(|timings| (t.thread_id, timings)))
             .map(|(thread_id, timings)| {
                 let timings = timings.lock();
                 let thread_name = timings.thread_name.clone();
@@ -99,13 +96,13 @@ impl SerializedTaskTiming {
     /// `anchor` - [`Instant`] that should be earlier than all timings to use as
     /// base anchor
     pub fn convert(anchor: Instant, timings: &[TaskTiming]) -> Vec<SerializedTaskTiming> {
-        let serialized = timings
+        timings
             .iter()
             .map(|timing| {
                 let start = timing.start.duration_since(anchor).as_nanos();
                 let duration = timing
                     .end
-                    .unwrap_or_else(|| Instant::now())
+                    .unwrap_or_else(Instant::now)
                     .duration_since(timing.start)
                     .as_nanos();
                 SerializedTaskTiming {
@@ -114,9 +111,7 @@ impl SerializedTaskTiming {
                     duration,
                 }
             })
-            .collect::<Vec<_>>();
-
-        serialized
+            .collect::<Vec<_>>()
     }
 }
 

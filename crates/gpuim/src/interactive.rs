@@ -128,10 +128,7 @@ impl MouseEvent for MouseDownEvent {}
 impl MouseDownEvent {
     /// Returns true if this mouse up event should focus the element.
     pub fn is_focusing(&self) -> bool {
-        match self.button {
-            MouseButton::Left => true,
-            _ => false,
-        }
+        matches!(self.button, MouseButton::Left)
     }
 }
 
@@ -163,10 +160,7 @@ impl MouseEvent for MouseUpEvent {}
 impl MouseUpEvent {
     /// Returns true if this mouse up event should focus the element.
     pub fn is_focusing(&self) -> bool {
-        match self.button {
-            MouseButton::Left => true,
-            _ => false,
-        }
+        matches!(self.button, MouseButton::Left)
     }
 }
 

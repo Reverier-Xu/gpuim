@@ -355,25 +355,25 @@ impl ListState {
         // store a fractional offset so the layout can restore the
         // proportional scroll position after the item is re-rendered
         // at its new height.
-        if let Some(scroll_top) = state.logical_scroll_top {
-            if range.contains(&scroll_top.item_ix) {
-                let mut cursor = state.items.cursor::<Count>(());
-                cursor.seek(&Count(scroll_top.item_ix), Bias::Right);
+        if let Some(scroll_top) = state.logical_scroll_top
+            && range.contains(&scroll_top.item_ix)
+        {
+            let mut cursor = state.items.cursor::<Count>(());
+            cursor.seek(&Count(scroll_top.item_ix), Bias::Right);
 
-                if let Some(item) = cursor.item() {
-                    if let Some(size) = item.size() {
-                        let fraction = if size.height.0 > 0.0 {
-                            (scroll_top.offset_in_item.0 / size.height.0).clamp(0.0, 1.0)
-                        } else {
-                            0.0
-                        };
+            if let Some(item) = cursor.item()
+                && let Some(size) = item.size()
+            {
+                let fraction = if size.height.0 > 0.0 {
+                    (scroll_top.offset_in_item.0 / size.height.0).clamp(0.0, 1.0)
+                } else {
+                    0.0
+                };
 
-                        state.pending_scroll = Some(PendingScrollFraction {
-                            item_ix: scroll_top.item_ix,
-                            fraction,
-                        });
-                    }
-                }
+                state.pending_scroll = Some(PendingScrollFraction {
+                    item_ix: scroll_top.item_ix,
+                    fraction,
+                });
             }
         }
 
@@ -474,10 +474,10 @@ impl ListState {
         let current_offset = self.logical_scroll_top();
         let state = &mut *self.0.borrow_mut();
 
-        if distance < px(0.) {
-            if let FollowState::Tail { is_following } = &mut state.follow_state {
-                *is_following = false;
-            }
+        if distance < px(0.)
+            && let FollowState::Tail { is_following } = &mut state.follow_state
+        {
+            *is_following = false;
         }
 
         let mut cursor = state.items.cursor::<ListItemSummary>(());
@@ -554,10 +554,10 @@ impl ListState {
             scroll_top.offset_in_item = px(0.);
         }
 
-        if scroll_top.item_ix < item_count {
-            if let FollowState::Tail { is_following } = &mut state.follow_state {
-                *is_following = false;
-            }
+        if scroll_top.item_ix < item_count
+            && let FollowState::Tail { is_following } = &mut state.follow_state
+        {
+            *is_following = false;
         }
 
         state.logical_scroll_top = Some(scroll_top);
@@ -733,10 +733,10 @@ impl StateInner {
             });
         }
 
-        if let FollowState::Tail { is_following } = &mut self.follow_state {
-            if delta.y > px(0.) {
-                *is_following = false;
-            }
+        if let FollowState::Tail { is_following } = &mut self.follow_state
+            && delta.y > px(0.)
+        {
+            *is_following = false;
         }
 
         if let Some(handler) = self.scroll_handler.as_mut() {
@@ -873,14 +873,13 @@ impl StateInner {
                 // If there's a pending scroll adjustment for the scroll-top
                 // item, apply it, ensuring proportional scroll position is
                 // maintained after re-measuring.
-                if ix == 0 {
-                    if let Some(pending_scroll) = self.pending_scroll.take() {
-                        if pending_scroll.item_ix == scroll_top.item_ix {
-                            scroll_top.offset_in_item =
-                                Pixels(pending_scroll.fraction * element_size.height.0);
-                            self.logical_scroll_top = Some(scroll_top);
-                        }
-                    }
+                if ix == 0
+                    && let Some(pending_scroll) = self.pending_scroll.take()
+                    && pending_scroll.item_ix == scroll_top.item_ix
+                {
+                    scroll_top.offset_in_item =
+                        Pixels(pending_scroll.fraction * element_size.height.0);
+                    self.logical_scroll_top = Some(scroll_top);
                 }
 
                 if visible_height < available_height {

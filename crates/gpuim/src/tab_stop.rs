@@ -59,7 +59,7 @@ impl Ord for TabStopNode {
 
 impl PartialOrd for TabStopNode {
     fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
-        Some(self.cmp(&other))
+        Some(self.cmp(other))
     }
 }
 
@@ -126,7 +126,7 @@ impl TabStopMap {
         let item = self.next_inner(node);
 
         if let Some(item) = item {
-            self.focus_handle_for_order(&item)
+            self.focus_handle_for_order(item)
         } else {
             self.next(None)
         }
@@ -163,7 +163,7 @@ impl TabStopMap {
         let item = self.prev_inner(node);
 
         if let Some(item) = item {
-            self.focus_handle_for_order(&item)
+            self.focus_handle_for_order(item)
         } else {
             self.prev(None)
         }
@@ -206,9 +206,7 @@ impl TabStopMap {
     }
 
     fn tab_node_for_focus_id(&self, focused_id: &FocusId) -> Option<&TabStopNode> {
-        let Some(order) = self.by_id.get(focused_id) else {
-            return None;
-        };
+        let order = self.by_id.get(focused_id)?;
         Some(order)
     }
 }
@@ -432,7 +430,6 @@ mod tests {
     }
 
     impl TabStopMapTest {
-        #[must_use]
         fn new() -> Self {
             Self {
                 tab_map: TabStopMap::default(),
@@ -441,7 +438,6 @@ mod tests {
             }
         }
 
-        #[must_use]
         fn tab_non_stop(mut self, index: isize) -> Self {
             let handle = FocusHandle::new(&self.focus_map)
                 .tab_stop(false)
@@ -450,7 +446,6 @@ mod tests {
             self
         }
 
-        #[must_use]
         fn tab_stop(mut self, index: isize, expected: usize) -> Self {
             let handle = FocusHandle::new(&self.focus_map)
                 .tab_stop(true)
@@ -461,7 +456,6 @@ mod tests {
             self
         }
 
-        #[must_use]
         fn tab_group(mut self, tab_index: isize, children: impl FnOnce(Self) -> Self) -> Self {
             self.tab_map.begin_group(tab_index);
             self = children(self);

@@ -988,7 +988,7 @@ dependencies = [
 
 [[package]]
 name = "collections"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "indexmap",
  "rustc-hash 2.1.2",
@@ -1391,7 +1391,7 @@ checksum = "ac6b926516df9c60bfa16e107b21086399f8285a44ca9711344b9e553c5146e2"
 
 [[package]]
 name = "derive-refineable"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -2268,7 +2268,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-channel 2.5.0",
@@ -2359,7 +2359,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-linux"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "as-raw-xcb-connection",
@@ -2407,7 +2407,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-macos"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-task",
@@ -2449,7 +2449,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-macros"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "gpuim",
  "heck",
@@ -2460,7 +2460,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-platform"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "console_error_panic_hook",
  "gpuim",
@@ -2472,7 +2472,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-shared-string"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "derive_more",
  "gpuim-util",
@@ -2482,7 +2482,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-tokio"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "gpuim",
@@ -2492,7 +2492,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-util"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "log",
@@ -2500,7 +2500,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-web"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "console_error_panic_hook",
@@ -2523,7 +2523,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-wgpu"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "bytemuck",
@@ -2550,7 +2550,7 @@ dependencies = [
 
 [[package]]
 name = "gpuim-windows"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "collections",
@@ -2765,7 +2765,7 @@ dependencies = [
 
 [[package]]
 name = "http-client"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-compression",
@@ -2789,7 +2789,7 @@ dependencies = [
 
 [[package]]
 name = "http-client-tls"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "rustls",
  "rustls-platform-verifier",
@@ -3573,7 +3573,7 @@ dependencies = [
 
 [[package]]
 name = "media"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "bindgen",
@@ -4180,7 +4180,7 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "perf"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "collections",
  "serde",
@@ -4845,7 +4845,7 @@ dependencies = [
 
 [[package]]
 name = "refineable"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "derive-refineable",
 ]
@@ -4932,7 +4932,7 @@ dependencies = [
 
 [[package]]
 name = "reqwest-client"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "bytes",
@@ -5207,7 +5207,7 @@ dependencies = [
 
 [[package]]
 name = "scheduler"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "async-task",
  "backtrace",
@@ -5698,9 +5698,10 @@ checksum = "13c2bddecc57b384dee18652358fb23172facb8a2c51ccc10d74c157bdea3292"
 
 [[package]]
 name = "sum-tree"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "ctor",
+ "env_logger",
  "heapless",
  "log",
  "proptest",
@@ -6420,7 +6421,7 @@ checksum = "06abde3611657adf66d383f00b093d7faecc7fa57071cce2578660c9f1010821"
 
 [[package]]
 name = "util"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "anyhow",
  "async-fs",
@@ -6462,7 +6463,7 @@ dependencies = [
 
 [[package]]
 name = "util-macros"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "perf",
  "quote",

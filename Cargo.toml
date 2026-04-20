@@ -28,7 +28,7 @@ members = [
 default-members = ["crates/gpuim", "crates/gpuim-platform"]
 
 [workspace.package]
-version          = "0.1.0"
+version          = "0.1.1"
 publish          = true
 edition          = "2024"
 license          = "LGPL-3.0-or-later"

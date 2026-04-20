@@ -188,6 +188,7 @@ impl TestAppContext {
     }
 
     #[expect(clippy::wrong_self_convention)]
+    #[allow(clippy::new_ret_no_self)]
     fn new<T: 'static>(&mut self, build_entity: impl FnOnce(&mut Context<T>) -> T) -> Entity<T> {
         let mut cx = self.app.borrow_mut();
         cx.new(build_entity)

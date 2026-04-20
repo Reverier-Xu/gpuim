@@ -424,7 +424,7 @@ impl SystemWindowTabController {
             .flat_map(|windows| windows.iter())
             .find(|tab| tab.id == id);
 
-        if tab.map_or(true, |t| t.title == title) {
+        if tab.is_none_or(|t| t.title == title) {
             return;
         }
 
@@ -1367,15 +1367,13 @@ impl App {
 
     pub(crate) fn push_effect(&mut self, effect: Effect) {
         match &effect {
-            Effect::Notify { emitter } => {
-                if !self.pending_notifications.insert(*emitter) {
-                    return;
-                }
+            Effect::Notify { emitter } if !self.pending_notifications.insert(*emitter) => {
+                return;
             }
-            Effect::NotifyGlobalObservers { global_type } => {
-                if !self.pending_global_notifications.insert(*global_type) {
-                    return;
-                }
+            Effect::NotifyGlobalObservers { global_type }
+                if !self.pending_global_notifications.insert(*global_type) =>
+            {
+                return;
             }
             _ => {}
         };
