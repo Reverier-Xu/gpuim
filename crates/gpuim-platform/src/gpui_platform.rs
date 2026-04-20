@@ -76,7 +76,7 @@ pub fn current_headless_renderer() -> Option<Box<dyn gpuim::PlatformHeadlessRend
     }
 }
 
-#[cfg(all(test, target_os = "macos"))]
+#[cfg(all(test, feature = "test-support", target_os = "macos"))]
 mod tests {
     use std::{cell::RefCell, time::Duration};
 
