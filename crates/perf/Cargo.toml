@@ -2,7 +2,7 @@
 name              = "perf"
 version           = { workspace = true }
 edition.workspace = true
-publish.workspace = true
+publish = false
 license.workspace = true
 description       = "Performance measurement utilities for GPUI tests"
 

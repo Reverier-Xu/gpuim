@@ -2,7 +2,7 @@
 name              = "media"
 version           = { workspace = true }
 edition.workspace = true
-publish.workspace = true
+publish = false
 license.workspace = true
 description       = "Bindings to macOS media handling APIs"
 

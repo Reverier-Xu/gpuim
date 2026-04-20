@@ -2,7 +2,7 @@
 name              = "refineable"
 version           = { workspace = true }
 edition.workspace = true
-publish.workspace = true
+publish = false
 license.workspace = true
 description       = "A macro for creating refinement types for partial initialization"
 

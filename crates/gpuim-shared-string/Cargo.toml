@@ -2,7 +2,7 @@
 name              = "gpuim-shared-string"
 version           = { workspace = true }
 edition.workspace = true
-publish.workspace = true
+publish = false
 
 [lib]
 path = "gpui_shared_string.rs"

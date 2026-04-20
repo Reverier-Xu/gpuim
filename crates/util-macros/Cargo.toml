@@ -2,7 +2,7 @@
 name              = "util-macros"
 version           = { workspace = true }
 edition.workspace = true
-publish.workspace = true
+publish = false
 license.workspace = true
 description       = "Utility macros for GPUI"
 
