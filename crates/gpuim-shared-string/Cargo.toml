@@ -1,6 +1,6 @@
 [package]
-name        = "gpuim-shared-string"
-version     = "0.1.0"
+name              = "gpuim-shared-string"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 

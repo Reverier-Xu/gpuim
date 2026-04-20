@@ -1,10 +1,10 @@
 [package]
-name        = "util-macros"
-version     = "0.1.0"
+name              = "util-macros"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
-description = "Utility macros for GPUI"
+description       = "Utility macros for GPUI"
 
 [lints]
 workspace = true

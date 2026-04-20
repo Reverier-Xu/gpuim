@@ -1,10 +1,10 @@
 [package]
-name        = "perf"
-version     = "0.1.0"
+name              = "perf"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
-description = "Performance measurement utilities for GPUI tests"
+description       = "Performance measurement utilities for GPUI tests"
 
 [lib]
 
@@ -12,18 +12,18 @@ description = "Performance measurement utilities for GPUI tests"
 missing_docs = "warn"
 
 [lints.clippy]
-needless_continue                = "allow"
-all                              = "warn"
-pedantic                         = "warn"
-style                            = "warn"
-missing_docs_in_private_items    = "warn"
-as_underscore                    = "deny"
-allow_attributes                 = "deny"
-allow_attributes_without_reason  = "deny"
-let_underscore_must_use          = "forbid"
-undocumented_unsafe_blocks       = "forbid"
-missing_safety_doc               = "forbid"
-disallowed_methods               = { level = "allow", priority = 1 }
+needless_continue               = "allow"
+all                             = "warn"
+pedantic                        = "warn"
+style                           = "warn"
+missing_docs_in_private_items   = "warn"
+as_underscore                   = "deny"
+allow_attributes                = "deny"
+allow_attributes_without_reason = "deny"
+let_underscore_must_use         = "forbid"
+undocumented_unsafe_blocks      = "forbid"
+missing_safety_doc              = "forbid"
+disallowed_methods              = { level = "allow", priority = 1 }
 
 [dependencies]
 collections.workspace = true

@@ -1,10 +1,10 @@
 [package]
-name        = "collections"
-version     = "0.1.0"
+name              = "collections"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
-description = "Standard collection types used by GPUI"
+description       = "Standard collection types used by GPUI"
 
 [lints]
 workspace = true

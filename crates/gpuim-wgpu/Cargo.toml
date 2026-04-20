@@ -1,6 +1,6 @@
 [package]
-name        = "gpuim-wgpu"
-version     = "0.1.0"
+name              = "gpuim-wgpu"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
@@ -20,7 +20,7 @@ gpuim.workspace       = true
 anyhow.workspace      = true
 bytemuck              = "1"
 collections.workspace = true
-cosmic-text           = "0.17"
+cosmic-text           = "0.18"
 etagere               = "0.2"
 itertools.workspace   = true
 log.workspace         = true
@@ -37,7 +37,7 @@ font-kit              = { workspace = true, optional = true }
 pollster.workspace = true
 
 [target.'cfg(target_family = "wasm")'.dependencies]
-wasm-bindgen.workspace = true
-wasm-bindgen-futures   = "0.4"
-web-sys                = { version = "0.3", features = ["HtmlCanvasElement"] }
-js-sys                 = "0.3"
+wasm-bindgen.workspace        = true
+wasm-bindgen-futures          = "0.4"
+web-sys                       = { version = "0.3", features = ["HtmlCanvasElement"] }
+js-sys                        = "0.3"

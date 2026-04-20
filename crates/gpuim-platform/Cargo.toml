@@ -1,6 +1,6 @@
 [package]
-name        = "gpuim-platform"
-version     = "0.1.0"
+name              = "gpuim-platform"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
@@ -12,8 +12,12 @@ workspace = true
 path = "src/gpui_platform.rs"
 
 [features]
-default         = []
-font-kit        = ["gpuim-macos/font-kit"]
+default         = [
+    "wayland",
+    "x11",
+    "font-kit",
+]
+font-kit        = ["gpuim-macos/font-kit", "gpuim/font-kit"]
 test-support    = ["gpuim/test-support", "gpuim-macos/test-support"]
 screen-capture  = [
     "gpuim/screen-capture",
@@ -22,8 +26,8 @@ screen-capture  = [
     "gpuim-linux/screen-capture",
 ]
 runtime_shaders = ["gpuim-macos/runtime_shaders"]
-wayland         = ["gpuim-linux/wayland"]
-x11             = ["gpuim-linux/x11"]
+wayland         = ["gpuim-linux/wayland", "gpuim/wayland"]
+x11             = ["gpuim-linux/x11", "gpuim/x11"]
 
 [dependencies]
 gpuim.workspace = true
@@ -39,5 +43,5 @@ gpuim                   = { workspace = true, features = ["windows-manifest"] }
 gpuim-linux.workspace = true
 
 [target.'cfg(target_family = "wasm")'.dependencies]
-gpuim-web.workspace            = true
-console_error_panic_hook       = "0.1"
+gpuim-web.workspace          = true
+console_error_panic_hook     = "0.1"

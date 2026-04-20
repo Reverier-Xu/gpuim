@@ -1,10 +1,10 @@
 [package]
-name        = "util"
-version     = "0.1.0"
+name              = "util"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
-description = "A collection of utility structs and functions used by GPUI"
+description       = "A collection of utility structs and functions used by GPUI"
 
 [lints]
 workspace = true
@@ -17,41 +17,41 @@ doctest = true
 test-support = ["git2", "rand", "util-macros"]
 
 [dependencies]
-anyhow.workspace        = true
-async_zip.workspace     = true
-collections.workspace   = true
-dunce.workspace         = true
-futures-lite.workspace  = true
-futures.workspace       = true
-globset.workspace       = true
-itertools.workspace     = true
-log.workspace           = true
-rand                    = { workspace = true, optional = true }
-regex.workspace         = true
-rust-embed.workspace    = true
-schemars.workspace      = true
-serde.workspace         = true
-serde_json.workspace    = true
+anyhow.workspace            = true
+async_zip.workspace         = true
+collections.workspace       = true
+dunce.workspace             = true
+futures-lite.workspace      = true
+futures.workspace           = true
+globset.workspace           = true
+itertools.workspace         = true
+log.workspace               = true
+rand                        = { workspace = true, optional = true }
+regex.workspace             = true
+rust-embed.workspace        = true
+schemars.workspace          = true
+serde.workspace             = true
+serde_json.workspace        = true
 serde_json_lenient.workspace = true
-shlex.workspace         = true
-take-until.workspace    = true
-tempfile.workspace      = true
-unicase.workspace       = true
-url.workspace           = true
-percent-encoding.workspace = true
-util-macros             = { workspace = true, optional = true }
-gpuim-util.workspace    = true
+shlex.workspace             = true
+take-until.workspace        = true
+tempfile.workspace          = true
+unicase.workspace           = true
+url.workspace               = true
+percent-encoding.workspace  = true
+util-macros                 = { workspace = true, optional = true }
+gpuim-util.workspace        = true
 
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
-smol.workspace  = true
-which.workspace = true
-git2            = { workspace = true, optional = true }
-async-fs.workspace = true
-walkdir.workspace  = true
-dirs.workspace     = true
+smol.workspace       = true
+which.workspace      = true
+git2                 = { workspace = true, optional = true }
+async-fs.workspace   = true
+walkdir.workspace    = true
+dirs.workspace       = true
 
 [target.'cfg(unix)'.dependencies]
-command-fds = "0.3"
+command-fds  = "0.3"
 libc.workspace = true
 nix            = { workspace = true, features = ["user"] }
 
@@ -59,10 +59,10 @@ nix            = { workspace = true, features = ["user"] }
 mach2.workspace = true
 
 [target.'cfg(windows)'.dependencies]
-tendril = "0.4"
+tendril = "0.5"
 
 [dev-dependencies]
-git2.workspace         = true
-rand.workspace         = true
-util-macros.workspace  = true
+git2.workspace              = true
+rand.workspace              = true
+util-macros.workspace       = true
 pretty_assertions.workspace = true

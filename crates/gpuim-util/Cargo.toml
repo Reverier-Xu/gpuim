@@ -1,6 +1,6 @@
 [package]
-name        = "gpuim-util"
-version     = "0.1.0"
+name              = "gpuim-util"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true

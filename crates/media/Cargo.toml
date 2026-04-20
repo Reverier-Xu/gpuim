@@ -1,10 +1,10 @@
 [package]
-name        = "media"
-version     = "0.1.0"
+name              = "media"
+version           = "0.1.0"
 edition.workspace = true
 publish.workspace = true
 license.workspace = true
-description = "Bindings to macOS media handling APIs"
+description       = "Bindings to macOS media handling APIs"
 
 [lints]
 workspace = true
@@ -25,4 +25,4 @@ core-video.workspace      = true
 objc.workspace            = true
 
 [build-dependencies]
-bindgen = "0.71"
+bindgen.workspace = true
