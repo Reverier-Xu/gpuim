@@ -2429,9 +2429,17 @@ impl Window {
         self.next_frame.window_active = self.active.get();
 
         // Register requested input handler with the platform window.
-        if let Some(input_handler) = self.next_frame.input_handlers.pop() {
+        // Use last_mut().and_then(|h| h.take()) instead of pop() to avoid
+        // shrinking the Vec. Cached views rely on stable indices in
+        // input_handlers across frames; pop() would invalidate them.
+        if let Some(input_handler) = self
+            .next_frame
+            .input_handlers
+            .last_mut()
+            .and_then(|h| h.take())
+        {
             self.platform_window
-                .set_input_handler(input_handler.unwrap());
+                .set_input_handler(input_handler);
         }
 
         self.layout_engine.as_mut().unwrap().clear();
