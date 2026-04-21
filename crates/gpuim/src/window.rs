@@ -1032,6 +1032,7 @@ pub struct Window {
     captured_hitbox: Option<HitboxId>,
     #[cfg(any(feature = "inspector", debug_assertions))]
     inspector: Option<Entity<Inspector>>,
+    pub(crate) drag_hovered_hitboxes: FxHashSet<HitboxId>,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -1640,6 +1641,7 @@ impl Window {
             captured_hitbox: None,
             #[cfg(any(feature = "inspector", debug_assertions))]
             inspector: None,
+            drag_hovered_hitboxes: FxHashSet::default(),
         })
     }
 
@@ -2528,6 +2530,17 @@ impl Window {
     fn draw_roots(&mut self, cx: &mut App) {
         self.invalidator.set_phase(DrawPhase::Prepaint);
         self.tooltip_bounds.take();
+
+        self.drag_hovered_hitboxes.clear();
+        if let Some(captured) = self.captured_hitbox {
+            self.drag_hovered_hitboxes.insert(captured);
+        }
+        if !self.last_input_was_keyboard() {
+            let hit_test = &self.mouse_hit_test;
+            for id in hit_test.ids.iter().take(hit_test.hover_hitbox_count) {
+                self.drag_hovered_hitboxes.insert(*id);
+            }
+        }
 
         let _inspector_width: Pixels = rems(30.0).to_pixels(self.rem_size());
         let root_size = {
@@ -4442,7 +4455,12 @@ impl Window {
             if event.is::<MouseMoveEvent>() {
                 // If this was a mouse move event, redraw the window so that the
                 // active drag can follow the mouse cursor.
-                self.refresh();
+                // Only request a refresh if the invalidator is not already
+                // dirty, avoiding redundant refresh calls within the same
+                // draw cycle.
+                if !self.invalidator.is_dirty() {
+                    self.refresh();
+                }
             } else if event.is::<MouseUpEvent>() {
                 // If this was a mouse up event, cancel the active drag and redraw
                 // the window.

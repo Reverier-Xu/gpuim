@@ -2847,14 +2847,16 @@ impl Interactivity {
                 for (state_type, group_drag_style) in &self.group_drag_over_styles {
                     if let Some(group_hitbox_id) = GroupHitboxes::get(&group_drag_style.group, cx)
                         && *state_type == drag.value.as_ref().type_id()
-                        && group_hitbox_id.is_hovered(window)
+                        && window.drag_hovered_hitboxes.contains(&group_hitbox_id)
                     {
                         style.refine(&group_drag_style.style);
                     }
                 }
 
                 for (state_type, build_drag_over_style) in &self.drag_over_styles {
-                    if *state_type == drag.value.as_ref().type_id() && hitbox.is_hovered(window) {
+                    if *state_type == drag.value.as_ref().type_id()
+                        && window.drag_hovered_hitboxes.contains(&hitbox.id)
+                    {
                         style.refine(&build_drag_over_style(drag.value.as_ref(), window, cx));
                     }
                 }
