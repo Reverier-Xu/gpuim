@@ -2052,6 +2052,7 @@ extern "C" fn handle_view_event(this: &Object, _: Sel, native_event: id) {
             _ => {}
         };
 
+        #[allow(clippy::collapsible_match)]
         match &event {
             PlatformInput::MouseDown(_) => {
                 drop(lock);
