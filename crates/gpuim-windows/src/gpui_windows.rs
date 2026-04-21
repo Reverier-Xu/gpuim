@@ -1,17 +1,4 @@
 #![cfg(target_os = "windows")]
-#![allow(clippy::needless_else)]
-#![allow(clippy::collapsible_if)]
-#![allow(clippy::collapsible_else_if)]
-#![allow(clippy::ptr_arg)]
-#![allow(clippy::needless_borrows_for_generic_args)]
-#![allow(clippy::needless_borrow)]
-#![allow(clippy::redundant_pattern_matching)]
-#![allow(clippy::partialeq_to_none)]
-#![allow(clippy::let_unit_value)]
-#![allow(clippy::field_reassign_with_default)]
-#![allow(clippy::upper_case_acronyms)]
-#![allow(clippy::needless_return)]
-#![allow(clippy::unnecessary_mut_passed)]
 
 mod clipboard;
 mod destination_list;

@@ -1685,7 +1685,7 @@ impl PlatformWindow for MacWindow {
     }
 
     fn play_system_bell(&self) {
-        unsafe { NSBeep() }
+        NSBeep()
     }
 
     #[cfg(feature = "test-support")]
@@ -2065,24 +2065,22 @@ extern "C" fn handle_view_event(this: &Object, _: Sel, native_event: id) {
                 event @ MouseMoveEvent {
                     pressed_button: Some(_),
                     ..
-                },
+                } if !lock.external_files_dragged,
             ) => {
                 // Synthetic drag is used for selecting long buffer contents while buffer is
                 // being scrolled. External file drag and drop is able to emit
                 // its own synthetic mouse events which will conflict with these
                 // ones.
-                if !lock.external_files_dragged {
-                    lock.synthetic_drag_counter += 1;
-                    let executor = lock.foreground_executor.clone();
-                    executor
-                        .spawn(synthetic_drag(
-                            weak_window_state,
-                            lock.synthetic_drag_counter,
-                            event.clone(),
-                            lock.background_executor.clone(),
-                        ))
-                        .detach();
-                }
+                lock.synthetic_drag_counter += 1;
+                let executor = lock.foreground_executor.clone();
+                executor
+                    .spawn(synthetic_drag(
+                        weak_window_state,
+                        lock.synthetic_drag_counter,
+                        event.clone(),
+                        lock.background_executor.clone(),
+                    ))
+                    .detach();
             }
 
             PlatformInput::MouseUp(MouseUpEvent { .. }) => {

@@ -274,7 +274,7 @@ impl WindowsWindowInner {
                         unsafe { GetWindowRect(this.hwnd, &mut rc) }
                             .context("failed to get window rect")
                             .log_err();
-                        let _ = this.state.fullscreen.set(Some(StyleAndBounds {
+                        this.state.fullscreen.set(Some(StyleAndBounds {
                             style,
                             x: rc.left,
                             y: rc.top,
@@ -657,9 +657,11 @@ impl PlatformWindow for WindowsWindow {
             .executor
             .spawn(async move {
                 unsafe {
-                    let mut config = TASKDIALOGCONFIG::default();
-                    config.cbSize = std::mem::size_of::<TASKDIALOGCONFIG>() as _;
-                    config.hwndParent = handle;
+                    let mut config = TASKDIALOGCONFIG {
+                        cbSize: std::mem::size_of::<TASKDIALOGCONFIG>() as _,
+                        hwndParent: handle,
+                        ..Default::default()
+                    };
                     let title;
                     let main_icon;
                     match level {
@@ -1165,7 +1167,7 @@ struct StyleAndBounds {
 }
 
 #[repr(C)]
-struct WINDOWCOMPOSITIONATTRIBDATA {
+struct WindowCompositionAttribData {
     attrib: u32,
     pv_data: *mut std::ffi::c_void,
     cb_data: usize,
@@ -1394,16 +1396,12 @@ fn dwm_set_window_composition_attribute(hwnd: HWND, backdrop_type: u32) {
     }
 
     unsafe {
-        let result = DwmSetWindowAttribute(
+        let _result = DwmSetWindowAttribute(
             hwnd,
             DWMWA_SYSTEMBACKDROP_TYPE,
             &backdrop_type as *const _ as *const _,
             std::mem::size_of_val(&backdrop_type) as u32,
         );
-
-        if !result.is_ok() {
-            return;
-        }
     }
 }
 
@@ -1417,7 +1415,7 @@ fn set_window_composition_attribute(hwnd: HWND, color: Option<Color>, state: u32
 
     unsafe {
         type SetWindowCompositionAttributeType =
-            unsafe extern "system" fn(HWND, *mut WINDOWCOMPOSITIONATTRIBDATA) -> BOOL;
+            unsafe extern "system" fn(HWND, *mut WindowCompositionAttribData) -> BOOL;
         let module_name = PCSTR::from_raw(c"user32.dll".as_ptr() as *const u8);
         if let Some(user32) = GetModuleHandleA(module_name)
             .context("Unable to get user32.dll handle")
@@ -1440,7 +1438,7 @@ fn set_window_composition_attribute(hwnd: HWND, color: Option<Color>, state: u32
                     | ((color.3 as u32) << 24),
                 animation_id: 0,
             };
-            let mut data = WINDOWCOMPOSITIONATTRIBDATA {
+            let mut data = WindowCompositionAttribData {
                 attrib: 0x13,
                 pv_data: &accent as *const _ as *mut _,
                 cb_data: std::mem::size_of::<AccentPolicy>(),

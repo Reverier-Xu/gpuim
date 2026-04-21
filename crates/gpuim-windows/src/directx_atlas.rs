@@ -236,14 +236,14 @@ impl DirectXAtlasState {
 
     fn texture(&self, id: AtlasTextureId) -> &DirectXAtlasTexture {
         match id.kind {
-            AtlasTextureKind::Monochrome => &self.monochrome_textures[id.index as usize]
+            AtlasTextureKind::Monochrome => self.monochrome_textures[id.index as usize]
                 .as_ref()
                 .unwrap(),
-            AtlasTextureKind::Polychrome => &self.polychrome_textures[id.index as usize]
+            AtlasTextureKind::Polychrome => self.polychrome_textures[id.index as usize]
                 .as_ref()
                 .unwrap(),
             AtlasTextureKind::Subpixel => {
-                &self.subpixel_textures[id.index as usize].as_ref().unwrap()
+                self.subpixel_textures[id.index as usize].as_ref().unwrap()
             }
         }
     }

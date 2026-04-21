@@ -937,8 +937,7 @@ impl WindowsWindowInner {
             if handled {
                 return Some(0);
             }
-        } else {
-        };
+        }
 
         // Since these are handled in handle_nc_mouse_up_msg we must prevent the default
         // window proc
@@ -978,7 +977,6 @@ impl WindowsWindowInner {
             if handled {
                 return Some(0);
             }
-        } else {
         }
 
         let last_pressed = self.state.nc_button_pressed.take();
@@ -1142,13 +1140,13 @@ impl WindowsWindowInner {
         self.state.direct_manipulation.update();
 
         let events = self.state.direct_manipulation.drain_events();
-        if !events.is_empty() {
-            if let Some(mut func) = self.state.callbacks.input.take() {
-                for event in events {
-                    func(event);
-                }
-                self.state.callbacks.input.set(Some(func));
+        if !events.is_empty()
+            && let Some(mut func) = self.state.callbacks.input.take()
+        {
+            for event in events {
+                func(event);
             }
+            self.state.callbacks.input.set(Some(func));
         }
 
         if force_render {

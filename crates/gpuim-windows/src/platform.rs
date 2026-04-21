@@ -910,12 +910,14 @@ impl WindowsPlatformInner {
                     // Allow the main loop to process other gpui events before going back into
                     // `run_foreground_task`
                     unsafe {
-                        if let Err(_) = PostMessageW(
+                        if PostMessageW(
                             Some(self.dispatcher.platform_window_handle.as_raw()),
                             WM_GPUI_TASK_DISPATCHED_ON_MAIN_THREAD,
                             WPARAM(self.validation_number),
                             LPARAM(0),
-                        ) {
+                        )
+                        .is_err()
+                        {
                             self.dispatcher.wake_posted.store(false, Ordering::Release);
                         };
                     }
@@ -1236,7 +1238,7 @@ fn handle_gpu_device_lost(
     }
 
     if let Some(text_system) = text_system.upgrade() {
-        text_system.handle_gpu_lost(&directx_devices)?;
+        text_system.handle_gpu_lost(directx_devices)?;
     }
     if let Some(all_windows) = all_windows.upgrade() {
         for window in all_windows.read().iter() {
