@@ -309,18 +309,17 @@ impl WindowsPlatform {
                 let vsync_provider = VSyncProvider::new();
                 loop {
                     vsync_provider.wait_for_vsync();
-                    if check_device_lost(&directx_device.device)
-                        || invalidate_devices.fetch_and(false, Ordering::Acquire)
-                    {
-                        if let Err(err) = handle_gpu_device_lost(
+                    if (check_device_lost(&directx_device.device)
+                        || invalidate_devices.fetch_and(false, Ordering::Acquire))
+                        && let Err(err) = handle_gpu_device_lost(
                             &mut directx_device,
                             platform_window.as_raw(),
                             validation_number,
                             &all_windows,
                             &text_system,
-                        ) {
-                            panic!("Device lost: {err}");
-                        }
+                        )
+                    {
+                        panic!("Device lost: {err}");
                     }
                     let Some(all_windows) = all_windows.upgrade() else {
                         break;

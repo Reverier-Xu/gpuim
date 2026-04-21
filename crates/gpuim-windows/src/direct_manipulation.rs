@@ -54,7 +54,7 @@ impl DirectManipulationHandler {
                     | DIRECTMANIPULATION_VIEWPORT_OPTIONS_DISABLEPIXELSNAPPING,
             )?;
 
-            let mut rect = RECT {
+            let rect = RECT {
                 left: 0,
                 top: 0,
                 right: DEFAULT_VIEWPORT_SIZE,

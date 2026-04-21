@@ -1117,12 +1117,7 @@ impl WindowsWindowInner {
     fn handle_device_lost(&self, lparam: LPARAM) -> Option<isize> {
         let devices = lparam.0 as *const DirectXDevices;
         let devices = unsafe { &*devices };
-        if let Err(err) = self
-            .state
-            .renderer
-            .borrow_mut()
-            .handle_device_lost(&devices)
-        {
+        if let Err(err) = self.state.renderer.borrow_mut().handle_device_lost(devices) {
             panic!("Device lost: {err}");
         }
         Some(0)
